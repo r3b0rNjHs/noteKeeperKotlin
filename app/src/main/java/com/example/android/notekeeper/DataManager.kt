@@ -1,12 +1,13 @@
 package com.example.android.notekeeper
 
-class DataManager {
+object DataManager {
     val courses = HashMap<String, CourseInfo>()
     val notes = ArrayList<NoteInfo>()
 
 
     init {
         initializeCourses()
+        initializeNotes()
     }
 
     private fun initializeCourses() {
@@ -22,5 +23,12 @@ class DataManager {
         course = CourseInfo("java_core", "Java Fundamentals: The Core Platform")
         courses.set(course.courseId, course)
 
+    }
+
+    private fun initializeNotes() {
+        var note = NoteInfo(CourseInfo("android_intents", "Android Programming with Intents"),"Soy una prueba", "texto")
+        notes.add(note)
+        note = NoteInfo(CourseInfo("android_intents", "Android Programming with Intents"),"Soy una prueba22", "texto22")
+        notes.add(note)
     }
 }
