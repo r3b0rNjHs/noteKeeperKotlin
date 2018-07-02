@@ -1,7 +1,6 @@
 package com.example.android.notekeeper
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -25,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         spinnerCourses.adapter = adapterCourses
 
-        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
+        notePosition = savedInstanceState?.getInt(NOTE_POSITION, POSITION_NOT_SET) ?:
+                intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET)
 
         if (notePosition != POSITION_NOT_SET){
             displayNote()
@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
             DataManager.notes.add(NoteInfo())
             notePosition = DataManager.notes.lastIndex
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(NOTE_POSITION, notePosition)
     }
 
     private fun displayNote() {
